@@ -144,6 +144,72 @@ one_pm <- ymd_hms("2016-03-12 13:00:00", tz = 'America/Denver')
 one_pm
 one_pm + ddays(1)
 
+one_pm
+one_pm + days(1)
+
+seconds(15)
+minutes(10)
+hours(c(12,24))
+days(7)
+
+months(1:6)
+weeks(3)
+years(1)
+10 * (months(6) + days(1))
+days(50)+hours(25)+minutes(2)
+
+ymd("2016-01-01")+dyears(1)
+ymd("2016-01-01")+years(1)
+
+one_pm + ddays(1)
+one_pm + days(1)
+
+flights_dt %>% 
+  filter(arr_time < dep_time)
+
+flights_dt <- flights_dt %>% 
+  mutate(
+    overnight = arr_time < dep_time,
+    arr_time = arr_time + days(overnight * 1),
+    sched_arr_time = sched_arr_time + days(overnight * 1)
+  )
+
+flights_dt %>% 
+  filter(overnight, arr_time < dep_time)
+
+years(1) / days(1)
+
+next_year <- today() + years(1)
+(today() %--% next_year) / ddays(1)
+
+(today() %--% next_year) %/% days(1)
+
+Sys.timezone()
+
+OlsonNames()
+length(OlsonNames())
+head(OlsonNames())
+
+(x1 <- ymd_hms("2015-06-01 12:00:00", tz = "America/New_York"))
+(x2 <- ymd_hms("2015-06-01 18:00:00", tz = "Europe/Copenhagen"))
+(x3 <- ymd_hms("2015-06-02 04:00:00", tz = "Pacific/Auckland"))
+
+x1 - x2
+x1 - x3
+
+x4 <- c(x1, x2, x3)
+x4
+x4a <- with_tz(x4, tzone = "Australia/Lord_Howe")
+x4a
+x4a-x4
+
+x4b <- force_tz(x4, tzone = "Australia/Lord_Howe")
+x4b
+
+x4b-x4
+
+
+
 
 
 
