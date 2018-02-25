@@ -19,6 +19,8 @@ Text formatting
 ## 2nd Level Header
  
 ### 3rd Level Header
+
+A footnote 2 [^1]
  
  Lists
 ----------------------------------------------------------------------------------------------------------------------
@@ -42,8 +44,6 @@ Links and images
 
 [linked phrase](http://example.com)
 
-![optional caption text](C:/Users/olof_/Documents/R/R4DS book/R4DS/slask.png)
-
 Tables
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -59,6 +59,41 @@ diamonds %>%
   head(10)
 
 ```
+
+> block quote
+
+*** 
+
+A footnote [^2]
+
+[^1]: Here is the footnote.
+[^2]: Here is the footnote 2.
+
+```{r by-name, eval = F}
+hej = 1
+hej
+```
+
+```{r}
+knitr::kable(
+  mtcars[1:5, ],
+  caption = "A knitr kable."
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 
