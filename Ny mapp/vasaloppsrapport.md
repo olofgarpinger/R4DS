@@ -3,8 +3,6 @@ Vasaloppet - Mellantidsrekommendationer
 Olof Rännbäck Garpinger, Knightec AB, <olof.rannbackgarpinger@knightec.se>
 28 February, 2018
 
-<img src="knightec_logo.png" width="80px" />
-
 Förord
 ------
 
@@ -60,8 +58,6 @@ Innehållsförteckning
 [5. Mellantidsrekommendationer](#mellantidsrekommendationer)
 
 [6. Hastigheter för skidåkare med liknande tid i mål](#hastigheter-för-skidåkare-med-liknande-tid-i-mål)
-
-[7. Slutsatser](#slutsatser)
 
 **1. Vasaloppsdata**
 --------------------
@@ -517,13 +513,15 @@ En annan intressant observation är att 2016 års kurva ligger klart under de ö
 
 ![](vasaloppsrapport_files/figure-markdown_github/avgpaces_eldris_to_mora_all_years-1.png)
 
-HASTIGHETSPROFILER!
+Nästa steg blir att titta på hastighetsprofiler sett över hela loppet. Lönar det sig att köra extra hårt vissa sträckor, eller är det kanske jämnt tempo som är den bästa melodin? Låt oss jämföra åkare som tagit sig i mål i stort sett samtidigt. Jag har därför normaliserat deras hastigheter utmed loppet genom att i varje sträcka dra bort medelfarten hos övriga åkare med ungefär samma sluttid. På så vis kan man se var de enskilda skidlöparna har kört på lite mer eller lite mindre jämfört med övriga som presterat lika väl. Därefter har jag applicerat en teknik som kallas principalkomponentanalys (<https://sv.wikipedia.org/wiki/Principalkomponentanalys>) på de normaliserade farterna. Denna metod hittar mer eller mindre representativa mönster i data. De första två principalkomponenterna kan förklara drygt 50% av variationen i skidåkarnas hastighetsprofiler. Detta kan låta väldigt avancerat, men resultatet är faktiskt relativt lättolkat.
 
-[Åter till innehållsförteckningen](#innehållsförteckning)
+Figuren nedan visar de två första principalkomponenterna uträknade med 2016 års data (övriga år ger i princip samma resultat), och är markerade i grönt och blått. Den första komponenten beskriver skidåkare som startar i högt tempo (positiv fart), och avslutar desto lugnare (negativ fart). Andra komponenten motsvarar skidåkare som först blir fördröjda i Smågan (negativ fart), därefter växlar upp (positiv fart), för att sedan avsluta lugnt (negativ fart). Det fina med principalkomponenterna är att de även kan användas för att beskriva någon som kör omvänt (t.ex. börjar lugnt och avslutar starkt). Tillsammans kan de två komponenterna också kombineras för att beskriva ytterligare ett antal hastighetsprofiler.
 
-**7. Slutsatser**
------------------
+![](vasaloppsrapport_files/figure-markdown_github/plot_PC1_PC2_loadings_and_preferred_pace_profile_2016-1.png)
 
-Rekommendationer för hur man bör åka Vasaloppet.
+Om man jämför de båda hastighetsprofilerna (principalkomponenterna) med hur väl skidåkarna har presterat (jämfört med övriga i samma startgrupp), kan man dessutom räkna fram en hastighetsprofil som varit extra fördelaktig bland åkare som nått samma sluttid. Denna är markerad i rött i figuren. Denna strategi föreslår alltså att man åker lugnare till en början, som snabbast i mitten av loppet, och något lite lugnare in i mål. En förklaring till varför denna profil tycks vara så fördelaktig är säkert pga att många skidåkare som avancerar i fältet tvingas hålla lägre tempo till en början (då trängs med skidåkare som inte håller samma tempo som de själva). En närmare titt på data visar emellertid att hastighetsprofilen är fördelaktig även för åkare som startar längre fram i fältet, som knappast behöver trängas lika mycket som övriga skidlöpare. Ett par tips till Vasaloppsåkare med höga ambitioner skulle då vara att:
+
+-   Spara på krafterna precis vid starten, och höj sedan gradvis tempot upp mot Risberg.
+-   Åka seedningslopp ifall man har höga ambitioner.
 
 [Åter till innehållsförteckningen](#innehållsförteckning)

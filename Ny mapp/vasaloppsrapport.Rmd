@@ -9,10 +9,6 @@ output: rmarkdown::github_document # html_document
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 ```
 
-```{r knightec_logo, out.width = "80px"}
-knitr::include_graphics("knightec_logo.png")
-```
-
 ```{r libraries, message = F}
 library(tidyverse)
 library(lubridate)
@@ -109,8 +105,6 @@ Sist men inte minst är jag mycket tacksam över att mina kollegor Josefin Berne
 [5. Mellantidsrekommendationer](#mellantidsrekommendationer)
 
 [6. Hastigheter för skidåkare med liknande tid i mål](#hastigheter-för-skidåkare-med-liknande-tid-i-mål)
-
-[7. Slutsatser](#slutsatser)
 
 ## **1. Vasaloppsdata** {#vasaloppsdata}
 
@@ -960,12 +954,34 @@ paces_2012_startgrupper %>%
   theme(axis.text.x = element_text(angle = 70, hjust = 1))
 ```
 
-HASTIGHETSPROFILER!
+Nästa steg blir att titta på hastighetsprofiler sett över hela loppet. Lönar det sig att köra extra hårt vissa sträckor, eller är det kanske jämnt tempo som är den bästa melodin? Låt oss jämföra åkare som tagit sig i mål i stort sett samtidigt. Jag har därför normaliserat deras hastigheter utmed loppet genom att i varje sträcka dra bort medelfarten hos övriga åkare med ungefär samma sluttid. På så vis kan man se var de enskilda skidlöparna har kört på lite mer eller lite mindre jämfört med övriga som presterat lika väl. Därefter har jag applicerat en teknik som kallas principalkomponentanalys (<https://sv.wikipedia.org/wiki/Principalkomponentanalys>) på de normaliserade farterna. Denna metod hittar mer eller mindre representativa mönster i data. De första två principalkomponenterna kan förklara drygt 50% av variationen i skidåkarnas hastighetsprofiler. Detta kan låta väldigt avancerat, men resultatet är faktiskt relativt lättolkat. 
 
-[Åter till innehållsförteckningen](#innehållsförteckning)
+Figuren nedan visar de två första principalkomponenterna uträknade med 2016 års data (övriga år ger i princip samma resultat), och är markerade i grönt och blått. Den första komponenten beskriver skidåkare som startar i högt tempo (positiv fart), och avslutar desto lugnare (negativ fart). Andra komponenten motsvarar skidåkare som först blir fördröjda i Smågan (negativ fart), därefter växlar upp (positiv fart), för att sedan avsluta lugnt (negativ fart). Det fina med principalkomponenterna är att de även kan användas för att beskriva någon som kör omvänt (t.ex. börjar lugnt och avslutar starkt). Tillsammans kan de två komponenterna också kombineras för att beskriva ytterligare ett antal hastighetsprofiler. 
 
-## **7. Slutsatser** {#slutsatser}
+```{r plot_PC1_PC2_loadings_and_preferred_pace_profile_2016}
+w <- c(-0.82,0.572)
+PC <- tibble(PC1 = c(0.464, 0.350, 0.0810, -0.174, -0.365, -0.437, -0.410, -0.366),
+             PC2 = c(-0.256,0.275,0.646,0.557,0.243,-0.0216,-0.184,-0.195))
+checkpoint_levels <- c("Smågan", "Mångsbodarna", "Risberg", "Evertsberg", 
+                        "Oxberg", "Hökberg", "Eldris", "Mora")
+PC %>% 
+  mutate(representative_pace = w[1]*PC1+w[2]*PC2,
+         checkpoint = factor(checkpoint_levels, levels = checkpoint_levels)) %>% 
+  select(checkpoint, PC1, PC2, representative_pace) %>% 
+  ggplot(aes(checkpoint, PC1, group = 1)) +
+  geom_line(aes(col = "Principalkomponent 1"), lwd = 1.2) +
+  geom_line(aes(y = PC2, col = "Principalkomponent 2"), lwd = 1.2) +
+  geom_line(aes(y = representative_pace, col = "Fördelaktig fartprofil för\nskidåkare med liknande tider i Mora"), lwd = 1.2) +
+  scale_color_discrete("Fartprofiler") +
+  xlab("Kontroll") +
+  ylab("Normaliserad fart mellan kontroller") +
+  ggtitle("Vasaloppet 2016") +
+  theme(axis.text.x = element_text(angle = 50, hjust = 1))
+```
 
-Rekommendationer för hur man bör åka Vasaloppet.
+Om man jämför de båda hastighetsprofilerna (principalkomponenterna) med hur väl skidåkarna har presterat (jämfört med övriga i samma startgrupp), kan man dessutom räkna fram en hastighetsprofil som varit extra fördelaktig bland åkare som nått samma sluttid. Denna är markerad i rött i figuren. Denna strategi föreslår alltså att man åker lugnare till en början, som snabbast i mitten av loppet, och något lite lugnare in i mål. En förklaring till varför denna profil tycks vara så fördelaktig är säkert pga att många skidåkare som avancerar i fältet tvingas hålla lägre tempo till en början (då trängs med skidåkare som inte håller samma tempo som de själva). En närmare titt på data visar emellertid att hastighetsprofilen är fördelaktig även för åkare som startar längre fram i fältet, som knappast behöver trängas lika mycket som övriga skidlöpare. Ett par tips till Vasaloppsåkare med höga ambitioner skulle då vara att:
+
+* Spara på krafterna precis vid starten, och höj sedan gradvis tempot upp mot Risberg.
+* Åka seedningslopp ifall man har höga ambitioner.
 
 [Åter till innehållsförteckningen](#innehållsförteckning)
