@@ -1,6 +1,6 @@
 ---
 title: "Vasaloppet - Mellantidsrekommendationer"
-author: "Olof Rännbäck Garpinger, Knightec AB, olof.rannbackgarpinger@knightec.se"
+author: "Olof Rännbäck Garpinger, Knightec AB, olof.rannbackgarpinger@knightec.se,"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown::github_document # html_document
 ---

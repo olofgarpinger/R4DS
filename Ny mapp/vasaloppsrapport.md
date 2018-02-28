@@ -1,6 +1,6 @@
 Vasaloppet - Mellantidsrekommendationer
 ================
-Olof Rännbäck Garpinger, Knightec AB, <olof.rannbackgarpinger@knightec.se>
+Olof Rännbäck Garpinger, Knightec AB, <olof.rannbackgarpinger@knightec.se>,
 28 February, 2018
 
 Förord
