@@ -75,5 +75,60 @@ str(y[[4]])
 a$a
 a[["a"]]
 
+x <- 1:10
+attr(x, "greeting")
+attr(x, "greeting") <- "Hi!"
+attr(x, "farewell") <- "Bye!"
+attributes(x)
+
+as.Date
+methods("as.Date")
+
+getS3method("as.Date", "default")
+getS3method("as.Date", "numeric")
+
+x <- factor(c("ab", "cd", "ab"), levels = c("ab", "cd", "ef"))
+typeof(x)
+attributes(x)
+
+x <- as.Date("1971-01-01")
+unclass(x)
+typeof(x)
+attributes(x)
+
+x <- lubridate::ymd_hm("1970-01-01 01:00")
+unclass(x)
+typeof(x)
+attributes(x)
+
+attr(x, "tzone") <- "US/Pacific"
+x
+
+attr(x, "tzone") <- "US/Eastern"
+x
+
+y <- as.POSIXlt(x)
+typeof(y)
+attributes(y)
+
+tb <- tibble::tibble(x = 1:5, y = 5:1)
+typeof(tb)
+attributes(tb)
+
+df <- data.frame(x = 1:5, y = 5:1)
+typeof(df)
+attributes(df)
+
+
+# Exercises p. 312
+typeof(hms::hms(3600))
+attributes(hms::hms(3600))
+
+tibble(x = 1:10, 
+       y = 2:3)
+
+aa <- tibble(x = list(list(c(1,2),2)),
+       y = list(c("1","2","3")))
+aa
 
 
