@@ -77,7 +77,8 @@ for (var in names(trans)) {
 map_dbl(df, mean)
 map_dbl(df, median)
 map_dbl(df, sd)
-df %>% map_dbl(mean)
+df %>% 
+  map_dbl(mean)
 
 rm(mtcars)
 models <- mtcars %>% 
@@ -148,10 +149,116 @@ x %>% map_dbl(possibly(log, NA_real_))
 x <- list(1, -1)
 x %>% map(quietly(log)) %>% str
 
+mu <- list(5, 10, -3)
+mu %>% 
+  map(rnorm, n = 5) %>% 
+  str()
 
+sigma <- list(1, 5, 10)
+seq_along(mu) %>% 
+  map(~rnorm(5, mu[[.]], sigma[[.]])) %>% 
+  str()
 
+map2(mu, sigma, rnorm, n = 5) %>% 
+  str()
 
+n <- list(1, 3, 5)
+args1 <- list(n, mu, sigma)
+args1 %>% 
+  pmap(rnorm) %>% 
+  str()
 
+args2 <- list(mean = mu, sd = sigma, n = n)
+args2 %>% 
+  pmap(rnorm) %>% 
+  str()
+
+params <- tribble(
+   ~mean, ~sd, ~n,
+       5,   1,  1,
+      10,   5,  3,
+      -3,  10,  5
+   )    
+params %>% 
+  pmap(rnorm)
+
+f <- c("runif", "rnorm", "rpois")
+param <- list(
+  list(min = -1, max = 1),
+  list(sd = 5),
+  list(lambda = 10)
+)
+    
+invoke_map(f, param, n = 5) %>% 
+  str()
+
+sim <- tribble(
+  ~f,        ~params,
+  "runif",   list(min = -1, max = 1),
+  "rnorm",   list(sd = 5),
+  "rpois",   list(lambda = 10)
+)  
+
+sim %>% 
+  mutate(sim = invoke_map(f, params, n = 10)) 
+
+x <- list(1, "a", 3)
+
+x %>% 
+  walk(print)
+
+library(ggplot2)
+plots <- mtcars %>% 
+  split(.$cyl) %>% 
+  map(~ggplot(., aes(mpg, wt)) + geom_point())
+paths <- stringr::str_c(names(plots), ".pdf")
+
+pwalk(list(paths, plots), ggsave, path = tempdir())
+
+iris %>% 
+  keep(is.factor) %>% 
+  str()
+
+iris %>% 
+  discard(is.factor) %>% 
+  str()
+
+x <- list(1:5, letters, list(10))
+
+x %>% 
+  some(is_character)
+
+x %>% 
+  every(is_vector)
+
+x <- sample(10)
+
+x %>% 
+  detect(~ . > 5)
+
+x %>% 
+  detect_index(~ . > 5)
+
+x %>% 
+  head_while(~ . > 5)
+
+x %>% 
+  tail_while(~ . > 5)
+
+dfs <- list(
+  age = tibble(name = "John", age = 30),
+  sex = tibble(name = c("John", "Mary"), sex = c("M", "F")),
+  trt = tibble(name = "Mary", treatment = "A")
+)
+dfs %>% 
+  reduce(full_join)
+
+vs <- list(
+  c(1, 3, 5, 6, 10),
+  c(1, 2, 3, 7, 8, 10),
+  c(1, 2, 3, 4, 8, 9, 10)
+)
+vs %>% reduce(intersect)
 
 
 
